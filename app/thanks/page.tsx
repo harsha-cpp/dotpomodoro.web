@@ -1,9 +1,15 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { CheckCircle, ArrowLeft, Download } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { CheckCircle, ArrowLeft, Download, Play } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function ThanksPage() {
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-black animate-fadeIn">
       {/* Header */}
@@ -45,7 +51,59 @@ export default function ThanksPage() {
 
           {/* Installation Steps */}
           <div className="space-y-12">
-            <h2 className="text-2xl font-bold text-white text-center mb-8">Installation Guide</h2>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+              <h2 className="text-2xl font-bold text-white">Installation Guide</h2>
+              <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+                <DialogTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className="group relative overflow-hidden bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-xl border-0 text-white hover:text-white transition-all duration-500 ease-out hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      boxShadow: '0 8px 32px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255,255,255,0.2)'
+                    }}
+                  >
+                    {/* Liquid animation background */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                    
+                    {/* Moving gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+                    
+                    {/* Content */}
+                    <div className="relative z-10 flex items-center">
+                      <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                      <span className="font-medium">Watch Video</span>
+                    </div>
+                    
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-500/50 to-purple-500/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl w-full bg-gray-900 border-gray-700">
+                  <DialogHeader>
+                    <DialogTitle className="text-white text-xl">DOTpomodoro Installation Video</DialogTitle>
+                  </DialogHeader>
+                  <div className="aspect-video w-full bg-black rounded-lg overflow-hidden">
+                    {/* YouTube Video Player */}
+                    <iframe
+                      src="https://www.youtube.com/embed/RD9SSWP2XH0"
+                      title="DOTpomodoro Installation Guide"
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="text-center pt-4">
+                    <p className="text-gray-400 text-sm">
+                      Having trouble? You can also follow the step-by-step guide below.
+                    </p>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
             
             {/* Step 1 */}
             <div className="grid md:grid-cols-2 gap-8 items-center">
